@@ -156,95 +156,95 @@ describe("BFS", function () {
   });
 });
 
-// describe("remove", function () {
-//   it("remove should correctly remove a node with no children", function () {
-//     let binarySearchTree = new BinarySearchTree();
-//     binarySearchTree
-//       .insert(15)
-//       .insert(20)
-//       .insert(10)
-//       .insert(12)
-//       .insert(1)
-//       .insert(5)
-//       .insert(50);
-//     binarySearchTree.remove(50);
-//     expect(binarySearchTree.root.right.val).toBe(20);
-//     expect(binarySearchTree.root.right.right).toBe(null);
+describe("remove", function () {
+  it("remove should correctly remove a node with no children", function () {
+    let binarySearchTree = new BinarySearchTree();
+    binarySearchTree
+      .insert(15)
+      .insert(20)
+      .insert(10)
+      .insert(12)
+      .insert(1)
+      .insert(5)
+      .insert(50);
+    binarySearchTree.remove(50);
+    expect(binarySearchTree.root.right.val).toBe(20);
+    expect(binarySearchTree.root.right.right).toBe(null);
 
-//     binarySearchTree.remove(5);
-//     expect(binarySearchTree.root.left.left.val).toBe(1);
-//     expect(binarySearchTree.root.left.left.right).toBe(null);
-//   });
+    binarySearchTree.remove(5);
+    expect(binarySearchTree.root.left.left.val).toBe(1);
+    expect(binarySearchTree.root.left.left.right).toBe(null);
+  });
 
-//   it("remove should correctly remove a node with one child", function () {
-//     let binarySearchTree = new BinarySearchTree();
-//     binarySearchTree
-//       .insert(15)
-//       .insert(20)
-//       .insert(10)
-//       .insert(12)
-//       .insert(1)
-//       .insert(5)
-//       .insert(50);
+  it("remove should correctly remove a node with one child", function () {
+    let binarySearchTree = new BinarySearchTree();
+    binarySearchTree
+      .insert(15)
+      .insert(20)
+      .insert(10)
+      .insert(12)
+      .insert(1)
+      .insert(5)
+      .insert(50);
 
-//     binarySearchTree.remove(1);
-//     expect(binarySearchTree.root.left.left.val).toBe(5);
-//     expect(binarySearchTree.root.left.left.left).toBe(null);
-//     expect(binarySearchTree.root.left.left.right).toBe(null);
+    binarySearchTree.remove(1);
+    expect(binarySearchTree.root.left.left.val).toBe(5);
+    expect(binarySearchTree.root.left.left.left).toBe(null);
+    expect(binarySearchTree.root.left.left.right).toBe(null);
 
-//     binarySearchTree.remove(20);
-//     expect(binarySearchTree.root.right.val).toBe(50);
-//     expect(binarySearchTree.root.right.right).toBe(null);
-//     expect(binarySearchTree.root.right.left).toBe(null);
-//   });
+    binarySearchTree.remove(20);
+    expect(binarySearchTree.root.right.val).toBe(50);
+    expect(binarySearchTree.root.right.right).toBe(null);
+    expect(binarySearchTree.root.right.left).toBe(null);
+  });
 
-//   it("remove should correctly remove a node with two children", function () {
-//     let binarySearchTree = new BinarySearchTree();
-//     binarySearchTree
-//       .insert(15)
-//       .insert(20)
-//       .insert(10)
-//       .insert(12)
-//       .insert(1)
-//       .insert(5)
-//       .insert(50)
-//       .insert(60)
-//       .insert(30)
-//       .insert(25)
-//       .insert(23)
-//       .insert(24)
-//       .insert(70);
+  it("remove should correctly remove a node with two children", function () {
+    let binarySearchTree = new BinarySearchTree();
+    binarySearchTree
+      .insert(15)
+      .insert(20)
+      .insert(10)
+      .insert(12)
+      .insert(1)
+      .insert(5)
+      .insert(50)
+      .insert(60)
+      .insert(30)
+      .insert(25)
+      .insert(23)
+      .insert(24)
+      .insert(70);
 
-//     binarySearchTree.remove(10);
-//     expect(binarySearchTree.root.left.val).toBe(12);
-//     expect(binarySearchTree.root.left.left.val).toBe(1);
-//     expect(binarySearchTree.root.left.left.right.val).toBe(5);
+    binarySearchTree.remove(10);
+    expect(binarySearchTree.root.left.val).toBe(12);
+    expect(binarySearchTree.root.left.left.val).toBe(1);
+    expect(binarySearchTree.root.left.left.right.val).toBe(5);
 
-//     binarySearchTree.remove(50);
-//     expect(binarySearchTree.root.right.val).toBe(20);
-//     expect(binarySearchTree.root.right.right.val).toBe(60);
-//     expect(binarySearchTree.root.right.right.left.val).toBe(30);
-//   });
+    binarySearchTree.remove(50);
+    expect(binarySearchTree.root.right.val).toBe(20);
+    expect(binarySearchTree.root.right.right.val).toBe(60);
+    expect(binarySearchTree.root.right.right.left.val).toBe(30);
+  });
 
-//   it("should remove a node with two children and handle the children of the removed node", function () {
-//     var binarySearchTree = new BinarySearchTree();
-//     binarySearchTree
-//       .insert(22)
-//       .insert(49)
-//       .insert(85)
-//       .insert(66)
-//       .insert(95)
-//       .insert(90)
-//       .insert(100)
-//       .insert(88)
-//       .insert(93)
-//       .insert(89);
+  it("should remove a node with two children and handle the children of the removed node", function () {
+    var binarySearchTree = new BinarySearchTree();
+    binarySearchTree
+      .insert(22)
+      .insert(49)
+      .insert(85)
+      .insert(66)
+      .insert(95)
+      .insert(90)
+      .insert(100)
+      .insert(88)
+      .insert(93)
+      .insert(89);
 
-//     binarySearchTree.remove(85);
-//     expect(binarySearchTree.root.right.right.val).toBe(88); // 88
-//     expect(binarySearchTree.root.right.right.right.left.left.val).toBe(89); // 89
-//   });
-// });
+    binarySearchTree.remove(85);
+    expect(binarySearchTree.root.right.right.val).toBe(88); // 88
+    expect(binarySearchTree.root.right.right.right.left.left.val).toBe(89); // 89
+  });
+});
 
 // describe("isBalanced", function () {
 //   it("checks if it is balanced", function () {

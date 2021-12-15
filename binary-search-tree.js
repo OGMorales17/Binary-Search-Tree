@@ -6,6 +6,16 @@ class Node {
   }
 }
 
+// const tree = {root: node}
+// insert(tree, val);
+
+// function insert(tree, val) {
+
+// }
+
+// const tree = new BinarySearchTree(node);
+// tree.insert(1);
+
 class BinarySearchTree {
   constructor(root = null) {
     this.root = root;
@@ -181,8 +191,47 @@ class BinarySearchTree {
    * Returns the removed node. */
 
   remove(val) {
+    function removeNode(node, val) {
+      if (!node) {
+        return null;
+      }
 
+      if (val == node.val) {
+        if (!node.left && !node.right) {
+          return null;
+        }
+
+        if (!node.left) {
+          return node.right;
+        }
+
+        if (!node.right) {
+          return node.left;
+        }
+
+        let temp = node.right;
+
+        while (!temp.left) {
+          temp = temp.left;
+        }
+
+        node.val = temp.val;
+
+        node.right = removeNode(node.right, temp.val);
+
+      } else if (val < node.val) {
+        node.left = removeNode(node.left, val);
+        return node;
+
+      } else {
+        node.right = removeNode(node.right, val);
+        return node;
+      }
+    }
+    this.root = removeNode(this.root, val)
   }
+
+
 
   /** Further Study!
    * isBalanced(): Returns true if the BST is balanced, false otherwise. */
