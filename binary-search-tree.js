@@ -191,44 +191,57 @@ class BinarySearchTree {
    * Returns the removed node. */
 
   remove(val) {
-    function removeNode(node, val) {
-      if (!node) {
-        return null;
-      }
+    this.root = this.removeNode(this.root, val)
+  }
 
-      if (val == node.val) {
-        if (!node.left && !node.right) {
-          return null;
-        }
+  // a recursive function to insert a new value in binary search tree
+  removeNode(current, val) {
+    // base case, if the tree is empty 
+    if (current === null) return current
 
-        if (!node.left) {
-          return node.right;
-        }
+    // when value is the same as current's value, this is the node to be deleted
+    if (val === current.val) {
 
-        if (!node.right) {
-          return node.left;
-        }
-
-        let temp = node.right;
-
-        while (!temp.left) {
-          temp = temp.left;
-        }
-
-        node.val = temp.val;
-
-        node.right = removeNode(node.right, temp.val);
-
-      } else if (val < node.val) {
-        node.left = removeNode(node.left, val);
-        return node;
-
+      // for case 1 and 2, node without child or with one child
+      if (current.left === null && current.right === null) {
+        return null
+      } else if (current.left === null) {
+        return current.right
+      } else if (current.right === null) {
+        return current.left
       } else {
-        node.right = removeNode(node.right, val);
-        return node;
+
+        /// node with two children, get the inorder successor, 
+        //smallest in the right subtree
+        let tempNode = this.kthSmallestNode(current.right)
+
+        current.val = tempNode.val
+
+        /// delete the inorder successor
+        current.right = this.removeNode(current.right, tempNode.val)
+        return current
       }
+
+      // recur down the tree
+    } else if (val < current.val) {
+
+      current.left = this.removeNode(current.left, val)
+      return current
+
+    } else {
+
+      current.right = this.removeNode(current.right, val)
+      return current
     }
-    this.root = removeNode(this.root, val)
+  }
+
+  /// helper function to find the smallest node
+
+  kthSmallestNode(node) {
+    while (node.left !== null)
+      node = node.left
+
+    return node
   }
 
 
@@ -236,17 +249,67 @@ class BinarySearchTree {
   /** Further Study!
    * isBalanced(): Returns true if the BST is balanced, false otherwise. */
 
-  isBalanced() {
+  isBalanced(current = this.root) {
+    if (current === null) return;
+    return maxDepth(current) - minDepth(current) <= 1;
 
+    function minDepth(current) {
+      if (current === null) return 0;
+      return 1 + Math.min(minDepth(current.left), minDepth(current.right));
+    }
+
+    function maxDepth(current) {
+      if (current === null) return 0;
+      return 1 + Math.max(maxDepth(current.left), maxDepth(current.right));
+    }
   }
 
   /** Further Study!
    * findSecondHighest(): Find the second highest value in the BST, if it exists.
    * Otherwise return undefined. */
 
-  findSecondHighest() {
+  findSecondHighest(current = this.root) {
+    // If the tree is too small, return
+    if (!this.root || (!this.root.left && !this.root.right)) return;
 
+    while (current) {
+      // Current is the largest and has a left subtree and 2nd largest is the largest in that subtree
+      if (current.left && !current.right) {
+        return this.findSecondHighest(current.left);
+      }
+      // Current is parent of largest and largest has no children so current is 2nd largest
+      if (current.right && (!current.right.left && !current.right.right)) {
+        return current.val;
+      }
+      current = current.right;
+    }
   }
+
+  /**
+   * dfsInOrder Iteratively
+   * Write another version of the dfsInOrder function but do not use recursion. 
+   * This can be challenging. Think about what the computer is doing for you when you make a recursive call.
+   */
+
+  dfsInOrderIteratively() {
+    let cur = this.root;
+    let stack = [];
+    let dfs = [];
+
+    while (stack.length > 0 || cur) {
+      while (cur) {
+        stack.push(cur);
+        cur = cur.left;
+      }
+      cur = stack.pop();
+      if (cur) {
+        dfs.push(cur.val)
+        cur = cur.right;
+      }
+    }
+    return dfs
+  }
+
 }
 
 
